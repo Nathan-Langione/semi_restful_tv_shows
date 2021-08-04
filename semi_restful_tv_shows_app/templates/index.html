@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Shows</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">    
+    </head>
+    <body>
+        <!-- <div>
+            <h1> Add a Book</h1>
+            <form action="/create_book" method="post">
+                {% csrf_token %}
+                <p>
+                    Title: <input name="title" type="text">
+                </p>
+                <p>
+                    Description: <input name="description" type="text">
+                </p>
+                <button type="submit">Add</button>
+            </form>     
+        </div> -->
+        <div>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Network</th>
+                    <th>Release Date</th>
+                    <th>Actions</th>
+                </tr>
+                {% for show in all_shows %}
+                <tr>
+                    <td>{{show.id}}</td>
+                    <td>{{show.title}}</td>
+                    <td>{{show.network}}</td>
+                    <td>{{show.release_date}}</td>
+                    <td>
+                        <a href="/shows/{{show.id}}">Show</a>
+                        <a href="/shows/{{show.id}}/edit">Edit</a>
+                        <a href="/shows/{{show.id}}/destroy">Delete</a>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </table>
+        </div>
+    </body>
+
+

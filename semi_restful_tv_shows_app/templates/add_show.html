@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>New Show</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">    
+    </head>
+    <body>
+        <div>
+            <p><a href="/shows">Go Back</a></p>
+            <h1> Add a New Show</h1>
+            <form action="/shows/create" method="post">
+                {% csrf_token %}
+                <p>
+                    Title: <input name="title" type="text">
+                </p>
+                <p>
+                    Network: <input name="network" type="text">
+                </p>
+                <p>
+                    Release Date: <input name="release_date" type="text">
+                </p>
+                <p>
+                    Description: <input name="description" type="text">
+                </p>
+                <button type="submit">Create</button>
+            </form>     
+        </div>
+    </body>
+
+

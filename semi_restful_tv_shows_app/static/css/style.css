@@ -1,0 +1,46 @@
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 900px;
+    height: 900px;
+    margin: auto;
+} 
+
+div{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 700px;
+    height: fit-content;
+    background-color: white;
+    padding: 5px;
+}
+
+td{
+    padding: 8px;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: grey;
+    
+}
+
+tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+p{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+hr{
+    width: 750px;
+    border: 1px solid black;
+}
