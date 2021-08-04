@@ -58,12 +58,7 @@ def update_show(request, show_id):
 
 
 def destroy_show(request, show_id):
-    """ if request.method=="POST":
-        for key, value in request.POST.items():
-            print('Key: %s' % (key) ) 
-            # print(f'Key: {key}') in Python >= 3.7
-            print('Value %s' % (value) )
-            # print(f'Value: {value}') in Python >= 3 """
+    """ if request.method=="POST": """
     show_to_delete = Show.objects.get(id=show_id)
     show_to_delete.delete()
     return redirect("/shows")
