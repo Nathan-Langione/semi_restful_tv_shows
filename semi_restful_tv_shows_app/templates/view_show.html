@@ -18,8 +18,10 @@
             <p>Last Updated: {{this_show.updated_at}}</p>
             </div>
             <a href="/shows/{{this_show.id}}/edit">Edit</a>
-            <a href="/shows/{{this_show.id}}/destroy">Delete</a>
-
+            <form action="/shows/{{this_show.id}}/destroy" method="post">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
     </body>
 
 
