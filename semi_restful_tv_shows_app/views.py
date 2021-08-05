@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import Show
 # Create your views here.
 
@@ -15,18 +16,19 @@ def add_show(request):
 
 def create_show(request):
     if request.method=="POST":
-        for key, value in request.POST.items():
-            print('Key: %s' % (key) ) 
-            # print(f'Key: {key}') in Python >= 3.7
-            print('Value %s' % (value) )
-            # print(f'Value: {value}') in Python >= 3.7 
-        title = request.POST.get('title')
-        network = request.POST.get('network')
-        release_date = request.POST.get('release_date')
-        description= request.POST.get('description')
-        new_show = Show.objects.create(title=title,network=network,release_date=release_date,description=description)
-        new_show.save()    
-    return redirect(f"/shows/{new_show.id}")
+        errors = Show.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect("/shows/new")
+        else:
+            title = request.POST.get('title')
+            network = request.POST.get('network')
+            release_date = request.POST.get('release_date')
+            description= request.POST.get('description')
+            new_show = Show.objects.create(title=title,network=network,release_date=release_date,description=description)
+            new_show.save()
+            return redirect(f"/shows/{new_show.id}")
     
 
 def view_show(request, show_id):
@@ -45,15 +47,21 @@ def edit_show(request, show_id):
 
 def update_show(request, show_id):
     if request.method=="POST":
-        #specify show
-        show_to_update = Show.objects.get(id=show_id)
-        #update show attirbutes
-        show_to_update.title = request.POST.get('title')
-        show_to_update.network = request.POST.get('network')
-        show_to_update.release_date = request.POST.get('release_date')
-        show_to_update.description= request.POST.get('description')
-        #save show
-        show_to_update.save()
+        errors = Show.objects.basic_validator(request.POST)
+        if len(errors) > 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect(f"/shows/{show_id}/edit")
+        else:
+            #specify show
+            show_to_update = Show.objects.get(id=show_id)
+            #update show attirbutes
+            show_to_update.title = request.POST.get('title')
+            show_to_update.network = request.POST.get('network')
+            show_to_update.release_date = request.POST.get('release_date')
+            show_to_update.description= request.POST.get('description')
+            #save show
+            show_to_update.save()
     return redirect(f"/shows/{show_id}")
 
 
