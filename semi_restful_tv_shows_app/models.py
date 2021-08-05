@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date, datetime
 
 # Create your models here.
 class ShowManager(models.Manager):
@@ -11,7 +12,16 @@ class ShowManager(models.Manager):
             errors["network"] = "Network should be at least 3 characters"
         desc_len = len(postData['description'])
         if 0 < desc_len and desc_len < 10:
-            errors["description"] = "Blog description should be at least 10 characters"
+            errors["description"] = "Description should be at least 10 characters"
+        t_date = date.today()
+        r_date =postData['release_date']
+        fr_date = datetime.strptime(r_date,'%Y-%m-%d')
+        if fr_date.year > t_date.year:
+            errors["release_date"] = "Release date should be in the past"
+        elif fr_date.year == t_date.year and fr_date.month > t_date.month:
+            errors["release_date"] = "Release date should be in the past"
+        elif fr_date.day > t_date.day:
+            errors["release_date"] = "Release date should be in the past"
         return errors
 
 class Show(models.Model):
