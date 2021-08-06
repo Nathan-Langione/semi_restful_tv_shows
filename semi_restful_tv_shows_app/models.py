@@ -20,7 +20,7 @@ class ShowManager(models.Manager):
             errors["release_date"] = "Release date should be in the past"
         elif fr_date.year == t_date.year and fr_date.month > t_date.month:
             errors["release_date"] = "Release date should be in the past"
-        elif fr_date.day > t_date.day:
+        elif fr_date.year == t_date.year and fr_date.month == t_date.month and fr_date.day > t_date.day:
             errors["release_date"] = "Release date should be in the past"
         return errors
 

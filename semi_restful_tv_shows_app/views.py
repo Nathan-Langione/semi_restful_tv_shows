@@ -5,12 +5,12 @@ from .models import Show
 
 def index(request):
     context = {
-        "all_shows": Show.objects.all()    
+        "all_shows": Show.objects.all()
     }
     return render(request,'index.html', context)
 
 def add_show(request):
-    
+
     return render(request,'add_show.html')
 
 
@@ -29,7 +29,7 @@ def create_show(request):
             new_show = Show.objects.create(title=title,network=network,release_date=release_date,description=description)
             new_show.save()
             return redirect(f"/shows/{new_show.id}")
-    
+
 
 def view_show(request, show_id):
     one_show = Show.objects.get(id=show_id)
